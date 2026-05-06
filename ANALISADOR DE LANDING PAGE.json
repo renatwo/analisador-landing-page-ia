@@ -1,0 +1,256 @@
+{
+  "name": "ANALISADOR DE LANDING PAGE",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Otimizador de Taxa de Conversão.",
+        "formDescription": "Sua landing page está vazando vendas — conserte isso agora.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Landing Page Url",
+              "placeholder": "https://sualandingpage.com/",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c4168d02-2483-4811-8f04-fa5a3c74c3cf",
+      "name": "Landing Page Url",
+      "type": "n8n-nodes-base.formTrigger",
+      "position": [
+        192,
+        560
+      ],
+      "webhookId": "d6c0e77c-b6c9-4021-86ff-69ddb3e83f4e",
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://' + $json['Landing Page Url'].replace('http://', '').replace('https://', '') }}",
+        "options": {}
+      },
+      "id": "da827788-fac7-40ab-90ba-97a9b1e9e13c",
+      "name": "Scrape Website",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        672,
+        560
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um especialista profissional em Otimização de Taxa de Conversão (CRO) que ajuda fundadores de empresas e CMOs a melhorar suas landing pages. Você é um especialista de nível mundial em analisar páginas de destino, “torrar” (criticar de forma construtiva) e fornecer ideias valiosas de CRO para ajudar os negócios a aumentarem conversões.\n\nOBJETIVO\nQuero que você faça uma análise crítica da minha landing page e me entregue recomendações para melhorar a taxa de conversão. Vou usar essa análise para entender o que está errado na minha página e fazer melhorias com base nas suas recomendações.\n\nESTRUTURA DA ANÁLISE\nEste framework consiste em 2 blocos de insights:\n\nRoast (Análise Crítica): uma crítica detalhada da minha landing page.\n\nRecomendações: 10 ideias de otimização da taxa de conversão baseadas na crítica e na análise.\n\nCRITÉRIOS DO ROAST & RECOMENDAÇÕES\n\nPara o Roast: Seja amigável e casual. Fale como um humano para outro humano.\n\nPara o Roast: Seja fora do comum e divertido. Não quero algo chato. Uma crítica precisa agitar os sentimentos do leitor.\n\nPara o Roast: Você fará uma análise completa da landing page e explicará o que está errado. Vai usar essa análise para gerar as recomendações.\n\nPara as Recomendações: Seja específico. Escreva exatamente o que eu preciso fazer. Sua descrição detalhada de cada ideia deve ser autoexplicativa.\n\nExemplo: em vez de dizer “Reescreva seu título”, dê ideias melhoradas para o título.\n\nPara as Recomendações: Seja criativo. Não traga ideias triviais e ultrapassadas de CRO que qualquer marqueteiro médio recomendaria. Priorize táticas não convencionais de CRO para que eu receba valor real aqui. Pense como o top 0,1% dos especialistas em CRO.\n\nPara as Recomendações: Priorize ideias de CRO que sejam relevantes no cenário de marketing digital em 2024.\n\nPara as Recomendações: Suas ideias precisam ser impactantes. Priorize ideias que causem efeito “uau”.\n\nPara as Recomendações: Suas ideias precisam ser fáceis de implementar.\n\nPara as Recomendações: Personalize as ideias com base no Roast que você fez. Não quero ler 10 ideias genéricas que servem para qualquer um (como “adicione um chat ao vivo” ou “ofereça um teste grátis”). Preciso de uma resposta 100% personalizada.\n\nAqui está o conteúdo da minha landing page: {{ $json.data }}",
+        "options": {}
+      },
+      "id": "a3ddfceb-25a8-4782-9c6e-2c2867ec22c2",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1152,
+        752
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "ec8a2adc-eac7-4517-b1c8-586d05b06326",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        688,
+        1344
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "iqoaoNqNC67SDIcx",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Formulário de Entrada (Landing Page URL)\n\n### Função:\n\nEste node de formulário recebe a URL da landing page informada pelo usuário e inicia o fluxo de análise.\n\n### Configuração Necessária:\n\n- Defina um título atrativo e descritivo para o formulário (ex: \"Otimizador de Taxa de Conversão\").\n- Adicione um campo obrigatório para inserir a URL da landing page, com um placeholder ilustrativo (ex: \"https://sualandingpage.com\").\n- Certifique-se de que o webhook associado ao formulário esteja ativo.\n\n### Objetivo:\n\nCapturar a URL da landing page que será analisada e iniciar automaticamente o processo de otimização.",
+        "height": 700,
+        "width": 480,
+        "color": 2
+      },
+      "id": "58c98173-3394-4423-a199-88e5fcfb17e0",
+      "name": "Landing Page URL - Doc",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Scrape Website (Captura de Conteúdo)\n\n### Função:\n\nRealiza uma requisição HTTP à URL fornecida pelo usuário para obter o código HTML e o conteúdo da landing page.\n\n### Configuração Necessária:\n\n- Configure o campo URL para usar o valor do formulário e adicionar https automaticamente: `{{ 'https://' + $json['Landing Page Url'].replace('http://', '').replace('https://', '') }}`.\n- Ajuste as opções conforme necessário (seguimento de redirecionamentos, cabeçalhos, etc.).\n- Teste o node para verificar se o conteúdo retornado está completo.\n\n### Objetivo:\n\nExtrair o conteúdo da página para que o agente de IA possa analisar e gerar recomendações.",
+        "height": 700,
+        "width": 480
+      },
+      "id": "1d52534b-ac1c-4561-8f42-03d8594cc12f",
+      "name": "Scrape Website - Doc",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Agente de IA (Análise de Conversão)\n\n### Função:\n\nEste node utiliza o modelo de linguagem para analisar o conteúdo da landing page e gerar uma crítica (roast) seguida de recomendações de otimização de taxa de conversão (CRO).\n\n### Componentes:\n\n- **Prompt / Definição**: inclui instruções claras sobre o tom, objetivo, estrutura da análise, critérios do roast e das recomendações.\n- **Entrada de Conteúdo**: recebe o HTML da landing page obtido pelo node de scraping via `{{ $json.data }}`.\n- **Conexão com o Modelo**: utiliza o node *OpenAI Chat Model* como provedor de linguagem.\n\n### Configuração Necessária:\n\n- Ajuste o texto de instruções de acordo com o público-alvo e as metas de conversão do seu negócio.\n- Certifique-se de conectar o *OpenAI Chat Model* na aba **AI Language Model**.\n- Verifique se o campo `promptType` está definido como `define` para usar um prompt customizado.\n\n### Objetivo:\n\nGerar uma análise profunda e recomendações personalizadas para melhorar a taxa de conversão da sua landing page.",
+        "height": 960,
+        "width": 560,
+        "color": 5
+      },
+      "id": "b228ab58-6ebd-4089-9882-28ed8ab002c5",
+      "name": "AI Agent - Doc",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        992,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## OpenAI Chat Model (Motor de Linguagem)\n\n### Função:\n\nServir como o provedor de linguagem para o Agente de IA. Este node encapsula o modelo de linguagem da OpenAI que processará o prompt e o conteúdo da landing page.\n\n### Configuração Necessária:\n\n- Defina o modelo a ser utilizado (por exemplo, `gpt-4` ou `o1` conforme disponível em sua conta).\n- Insira suas credenciais da API OpenAI para habilitar o acesso ao modelo.\n- Ajuste as opções avançadas, como o nível de esforço de raciocínio (`reasoningEffort`), de acordo com a profundidade desejada das respostas.\n\n### Objetivo:\n\nGarantir que o Agente de IA tenha acesso a um modelo potente capaz de compreender e gerar análises de alta qualidade para otimização de taxa de conversão.",
+        "height": 780,
+        "width": 484,
+        "color": 3
+      },
+      "id": "1995904c-710a-4647-938a-da33ba4c976a",
+      "name": "OpenAI Chat Model - Doc",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Passo a Passo de Configuração\n## Passo 1: Configurar o Formulário\n- Defina o título e a descrição do formulário para contextualizar o usuário (ex: \"Otimizador de Taxa de Conversão\").\n- Adicione o campo obrigatório \"Landing Page URL\" com um placeholder e marque como obrigatório.\n- Ative o webhook do formulário para que novas submissões disparem o fluxo automaticamente.\n\n## Passo 2: Testar o Formulário\n- Acesse o link do formulário gerado pelo n8n e envie uma URL real de landing page.\n- Utilize a função **Pin Data** no node Form Trigger para fixar os dados de exemplo e configurar os próximos nodes sem precisar reenviar várias vezes.\n\n## Passo 3: Configurar o node Scrape Website\n- Defina a expressão `{{ 'https://' + $json['Landing Page Url'].replace('http://', '').replace('https://', '') }}` no campo URL para recuperar dinamicamente a página enviada e evitar duplicidade de `http`/`https`.\n- Ajuste as opções avançadas caso seu site exija cabeçalhos ou autenticação.\n- Execute o node e verifique se o campo `data` contém o HTML da página.\n\n## Passo 4: Configurar o OpenAI Chat Model\n- Insira suas credenciais de API OpenAI.\n- Escolha o modelo apropriado para a tarefa (ex: GPT-4).\n- Ajuste o parâmetro *reasoningEffort* para controlar a profundidade do raciocínio da IA.\n\n## Passo 5: Montar o Prompt do Agente de IA\n- Edite o texto do prompt no node *AI Agent* para refletir seu negócio e suas metas de conversão.\n- Mantenha a estrutura de Roast e Recomendações, e esclareça o nível de criatividade e personalização esperado.\n\n## Passo 6: Testar o Fluxo Completo\n- Execute o fluxo enviando uma URL válida pelo formulário.\n- Confira se o Agente de IA retorna uma crítica detalhada e 10 recomendações personalizadas.\n- Ajuste o prompt ou as opções do modelo se necessário para melhorar a qualidade das respostas.\n\n## Passo 7: Implementar e Medir\n- Aplique as recomendações de maior impacto na sua landing page.\n- Monitore as métricas de conversão antes e depois das mudanças para validar a eficácia das otimizações.\n\n## Passo 8: Iterar e Melhorar\n- Reenvie a URL da landing page atualizada pelo formulário para obter novas análises.\n- Repita o processo até atingir os resultados desejados.\n\n### Objetivo:\n\nOrientar passo a passo a configuração, teste e melhoria contínua do fluxo de otimização de landing pages no n8n.",
+        "height": 1600,
+        "width": 700,
+        "color": 4
+      },
+      "id": "aa913ce6-63c7-403a-ae1b-4e799cbe7487",
+      "name": "Configuração Passo a Passo",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2144,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "0a710aa3-5971-4271-b365-65b4cdbdb77e",
+      "name": "Do Nothing",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1792,
+        688
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Resultado e Leitura\n\n### Função:\n\nEste node **Do Nothing** atua como ponto final do fluxo, sem executar nenhuma ação. Ele existe para facilitar a visualização e permite que você conecte ações futuras.\n\n### Como utilizar:\n\n- Aqui você pode conectar nodes que enviem o resultado para e-mail, WhatsApp, Telegram ou qualquer outro canal conforme necessário.\n- Ao não conectar nada, os dados permanecem disponíveis para leitura nas execuções completas do workflow no n8n (Executions).\n- Use este ponto para inspecionar a saída do agente de IA ou integrar com outros serviços.\n\n### Objetivo:\n\nOrientar onde o resultado gerado pelo agente será entregue e como integrá-lo com canais de comunicação ou ler via execuções.",
+        "height": 960,
+        "width": 560,
+        "color": 4
+      },
+      "id": "05ff344b-ce44-464d-8b6b-d9fafb83e3df",
+      "name": "Do Nothing - Doc",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1568,
+        0
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Do Nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Website": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Landing Page Url": {
+      "main": [
+        [
+          {
+            "node": "Scrape Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d9083f91-5a7e-4bb0-9fa6-568c1308b80d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "521a62f1f5d17e4e6083738e295d69e96d1e69e678c3a32ebad2f5ade11969c6"
+  },
+  "id": "cAdrvEGSwtOFWYHi",
+  "tags": [
+    {
+      "updatedAt": "2026-04-26T23:36:27.256Z",
+      "createdAt": "2026-04-26T23:36:27.256Z",
+      "id": "q6GaxekeUWasjAqS",
+      "name": "Business"
+    }
+  ]
+}
